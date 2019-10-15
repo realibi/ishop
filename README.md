@@ -1,1 +1,1 @@
-# ishop
+Internet Shop
