@@ -20,6 +20,7 @@ $router->with("/admin", function () use ($router) {
 
     $router->get("/?", function (Request $request, Response $response) {
         return $response->redirect(Helpers::url("admin", "dashboard"))->send();
+        //return $response->redirect("http://ishop:8000/app/Views/admin/dashboarddd.tpl")->send();
     });
 
     $router->get("/dashboard/?", function (Request $request, Response $response) {
@@ -28,7 +29,16 @@ $router->with("/admin", function () use ($router) {
 
         $controller = new \Controllers\DashboardController();
 
-        return $controller->show();
+        return $controller->showPage();
+    });
+
+    $router->get("/dashboard/categories", function () {
+
+        //Auth::middleware($response);
+
+        $controller = new \Controllers\DashboardController();
+
+        return $controller->get();
     });
 
     $router->get("/logout/?", function (Request $request, Response $response) {

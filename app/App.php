@@ -15,7 +15,7 @@ final class App {
     }
 
     private function initRouter() {
-        include Helpers::path("router.php");
+        include Helpers::path("app", "Core", "router.php");
     }
 
 //    private function initErrorHandler() {

@@ -16,6 +16,13 @@ class Config {
             $cfg = self::$cfgs[$name];
         else {
             $cfg = include Helpers::path("app", "config", "$name.php");
+//            $cfg = [
+//                'database_type' => 'mysql',
+//                'database_name' => 'blog',
+//                'server' => 'localhost',
+//                'username' => 'root',
+//                'password' => ''
+//            ];
             self::$cfgs[$name] = $cfg;
         }
 

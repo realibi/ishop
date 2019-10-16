@@ -16,7 +16,7 @@ abstract class Controller implements ControllerInterface {
             foreach ($variables as $key => $value)
                 $e->assign($key, $value);
 
-        return $e->display($template_name . Config::main("template_extension"));
+        return $e->display($template_name . ".tpl");
 
     }
 

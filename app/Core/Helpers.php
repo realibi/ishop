@@ -10,7 +10,7 @@ class Helpers {
 
     static function path(... $parts) {
 
-        $dir = __DIR__ . DIRECTORY_SEPARATOR;
+        $dir = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "..";
         $dir = realpath($dir);
 
         if (isset($parts))
