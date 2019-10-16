@@ -20,7 +20,6 @@ $router->with("/admin", function () use ($router) {
 
     $router->get("/?", function (Request $request, Response $response) {
         return $response->redirect(Helpers::url("admin", "dashboard"))->send();
-        //return $response->redirect("http://ishop:8000/app/Views/admin/dashboarddd.tpl")->send();
     });
 
     $router->get("/dashboard/?", function (Request $request, Response $response) {
