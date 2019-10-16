@@ -12,6 +12,8 @@ final class App {
     {
         //$this->initErrorHandler();
         $this->initRouter();
+
+        
     }
 
     private function initRouter() {

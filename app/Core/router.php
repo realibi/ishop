@@ -1,4 +1,5 @@
 <?php
+ header("Access-Control-Allow-Origin: *");
 
 use Controllers\LoginController;
 use Core\Helpers;
@@ -37,7 +38,16 @@ $router->with("/admin", function () use ($router) {
 
         $controller = new \Controllers\DashboardController();
 
-        return $controller->get();
+        return $controller->getCategories();
+    });
+
+    $router->get("/dashboard/items", function () {
+
+        //Auth::middleware($response);
+
+        $controller = new \Controllers\DashboardController();
+
+        return $controller->getItems();
     });
 
     $router->get("/logout/?", function (Request $request, Response $response) {

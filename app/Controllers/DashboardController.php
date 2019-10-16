@@ -24,9 +24,11 @@ class DashboardController extends Controller {
         return $this->render("admin/dashboard");
     }
 
-    function get(){
-        $data = $this->db->select('categories', "*");
+    function getCategories(){
+        return json_encode($this->db->select('categories', "*"));
+    }
 
-        return $data;
+    function getItems(){
+        return json_encode($this->db->select('items', "*"));
     }
 }

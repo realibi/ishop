@@ -5,25 +5,51 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
 
-<button id="btnn">Ready</button>
+<div class="col-12">   
+    <div class="row">
+        <button id="categoryShowBtn" class="col-4">Показать категории</button>
+        <div class="col-4"></div>
+        <button id="itemsShowBtn" class="col-4">Показать товары</button>
+    </div>
+</div>
 
-<div class="result"></div>
+<div class="col-12">   
+    <div class="row">
+        <div class="categories col-4"></div>
+        <div class="col-4"></div>
+        <div class="items col-4"></div>
+    </div>
+</div>
 
 <script>
-    $("#btnn").click(function(){
+    $("#categoryShowBtn").click(function(){
         $.ajax({
-            url: "http://ishop:8000/admin/dashboard/categories",
-            contentType: "application/json",
+            url: "dashboard/categories",
             method: "GET",
             success: function(data) {
-                $(".result").html(" ");
-                data.forEach(function(item, i, data) {
-                    $(".result").append("<p><h5>" + item.name + "</h5></p>");
+                var array = JSON.parse(data);
+                $(".categories").html(" "); 
+                array.forEach(function(item, i, data) {
+                    $(".categories").append("<p><h5>" + item["name"] + "</h5></p>");      
                 });
+                  
+            }
+        });
+    });
+
+    $("#itemsShowBtn").click(function(){
+        $.ajax({
+            url: "dashboard/items",
+            method: "GET",
+            success: function(data) {
+                var array = JSON.parse(data);
+                $(".items").html(" "); 
+                array.forEach(function(item, i, data) {
+                    $(".items").append("<p><h5>" + item["name"] + "</h5></p>");      
+                });
+                  
             }
         });
     });
 </script>
-
-<div class="items"></div>
 {include file="global/footer.tpl"}
