@@ -31,4 +31,20 @@ class DashboardController extends Controller {
     function getItems(){
         return json_encode($this->db->select('items', "*"));
     }
+
+    function deleteCategory($id){
+        $this->db->delete("categories", [ "id" => $id ]);
+    }
+
+    function deleteItem($id){
+        $this->db->delete("items", [ "id" => $id ]);
+    }
+
+    function createCategory($categoryName){
+        $this->db->insert("categories", [ "name" => $categoryName ]);
+    }
+
+    function createItem($itemName){
+        $this->db->insert("items", [ "name" => $itemName ]);
+    }
 }

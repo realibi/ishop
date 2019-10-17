@@ -1,5 +1,5 @@
 <?php
- header("Access-Control-Allow-Origin: *");
+ //header("Access-Control-Allow-Origin: *");
 
 use Controllers\LoginController;
 use Core\Helpers;
@@ -39,6 +39,33 @@ $router->with("/admin", function () use ($router) {
         $controller = new \Controllers\DashboardController();
 
         return $controller->getCategories();
+    });
+
+    $router->get("/dashboard/categories/delete/[:id]" , function (Request $request, Response $response) {
+
+        //Auth::middleware($response);
+
+        $controller = new \Controllers\DashboardController();
+
+        return $controller->deleteCategory($request->id);
+    });
+
+    $router->get("/dashboard/categories/create/[:categoryName]" , function (Request $request, Response $response) {
+
+        //Auth::middleware($response);
+
+        $controller = new \Controllers\DashboardController();
+
+        return $controller->createCategory($request->categoryName);
+    });
+
+    $router->get("/dashboard/items/delete/[:id]" , function (Request $request, Response $response) {
+
+        //Auth::middleware($response);
+
+        $controller = new \Controllers\DashboardController();
+
+        return $controller->deleteItem($request->id);
     });
 
     $router->get("/dashboard/items", function () {
