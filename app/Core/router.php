@@ -38,22 +38,26 @@ $router->with("/items", function () use ($router, $itemsController, $routesContr
         return $itemsController->addToCart($request->id);
     });
 
-    $router->get("/cart", function (Request $request, Response $response) use ($routesController) {
+    $router->get("/cart/?", function (Request $request, Response $response) use ($routesController) {
         
         return $routesController->redirect("cart");   
     });
 
-    $router->get("/getCart", function (Request $request, Response $response) use ($itemsController) {
+    $router->get("/getCart/?", function (Request $request, Response $response) use ($itemsController) {
         
         return $itemsController->getCart();
     });
 
-    $router->get("/clearCart", function (Request $request, Response $response) use ($itemsController) {
+    $router->get("/clearCart/?", function (Request $request, Response $response) use ($itemsController) {
         
         return $itemsController->clearCart();
     });
 
-    $router->get("/getItem/[:id]", function (Request $request, Response $response) use ($itemsController) {
+    $router->get("/removeItem/[i:id]/?", function (Request $request, Response $response) use ($itemsController) {
+        return $itemsController->removeItem($request->param("id"));
+    });
+
+    $router->get("/getItem/[:id]/?", function (Request $request, Response $response) use ($itemsController) {
         
         return $itemsController->getItem($request->id);
     });

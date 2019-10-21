@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-10-21 16:16:28
+/* Smarty version 3.1.34-dev-7, created on 2019-10-21 17:30:12
   from 'C:\OSPanel\domains\ishop.loc\Views\cart.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5dadafacaeba99_93158098',
+  'unifunc' => 'content_5dadc0f4e31307_23267782',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a0f7234253d04353552ce41eb9f4c775efeab7e' => 
     array (
       0 => 'C:\\OSPanel\\domains\\ishop.loc\\Views\\cart.tpl',
-      1 => 1571663755,
+      1 => 1571668205,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:global/head.tpl' => 1,
   ),
 ),false)) {
-function content_5dadafacaeba99_93158098 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5dadc0f4e31307_23267782 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:admin/blocks/navbar.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 $_smarty_tpl->_subTemplateRender("file:global/head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
@@ -58,7 +58,12 @@ $_smarty_tpl->_subTemplateRender("file:global/head.tpl", $_smarty_tpl->cache_id,
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <div class="container">
+    <div class="title col-12 mt-50">
+
+    </div>
+
     <div id="items" class="row mt-50">
+    Sum: 0
     </div>
 </div>
 
@@ -71,12 +76,13 @@ $_smarty_tpl->_subTemplateRender("file:global/head.tpl", $_smarty_tpl->cache_id,
 <?php echo '<script'; ?>
 >
     $(document).ready(getElements());
-
+    var sum = 0;
     function getElements(){
         $.ajax({
             url: "/items/getCart",
             method: "GET",
             success: function(data) {
+                console.log(data);
                 if(data != null){
                     var array = JSON.parse(data);
                     $("#items").html(" "); 
@@ -85,8 +91,11 @@ $_smarty_tpl->_subTemplateRender("file:global/head.tpl", $_smarty_tpl->cache_id,
                     url: "/items/getItem/" + item,
                     method: "GET",
                     success: function(res){
-                    alert(res["name"]);
-                    $("#items").append('<div class="col-4 demo-card-square mdl-card mdl-shadow--2dp margin"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + res["price"] + ' тенге' +'</h2></div><div class="mdl-card__supporting-text">' + data["name"] + '<br>' + '</div><div class="mdl-card__actions mdl-card--border"><button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="addToCart(' + data["id"] +')">В корзину</button></div>');
+                    var result = JSON.parse(res);
+                    sum += parseInt(result["price"], 10);
+                    $("#items").append('<div class="col-4 demo-card-square mdl-card mdl-shadow--2dp margin"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + result["price"] + ' тенге' +'</h2></div><div class="mdl-card__supporting-text">' + result["name"] + '<br>' + '</div><div class="mdl-card__actions mdl-card--border"><button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="removeItem(' + result["id"] +')">Убрать</button></div>');
+
+                    $(".title").html("Sum: " + sum);
                     }
                     });
                 });
@@ -98,6 +107,16 @@ $_smarty_tpl->_subTemplateRender("file:global/head.tpl", $_smarty_tpl->cache_id,
     function clearCart(){
         $.ajax({
             url: "/items/clearCart",
+            method: "GET",
+            success: function (data) {
+                Location.reload();  
+            }
+        });
+    }
+
+    function removeItem(id){
+        $.ajax({
+            url: "/items/removeItem/" + id,
             method: "GET",
             success: getElements()
         });

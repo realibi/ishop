@@ -50,6 +50,14 @@ class ItemsController extends Controller {
         ]));
     }
 
+    function removeItem($id){
+        foreach($_SESSION["cart"] as $key => $item){
+            if($item == $id){
+                unset($_SESSION["cart"][$key]);
+            }
+        }
+    }
+
     function clearCart(){
         $_SESSION["cart"] = [];
     }

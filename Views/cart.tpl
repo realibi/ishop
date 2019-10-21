@@ -30,7 +30,12 @@
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <div class="container">
+    <div class="title col-12 mt-50">
+
+    </div>
+
     <div id="items" class="row mt-50">
+    Sum: 0
     </div>
 </div>
 
@@ -42,12 +47,13 @@
 
 <script>
     $(document).ready(getElements());
-
+    var sum = 0;
     function getElements(){
         $.ajax({
             url: "/items/getCart",
             method: "GET",
             success: function(data) {
+                console.log(data);
                 if(data != null){
                     var array = JSON.parse(data);
                     $("#items").html(" "); 
@@ -56,8 +62,11 @@
                     url: "/items/getItem/" + item,
                     method: "GET",
                     success: function(res){
-                    alert(res["name"]);
-                    $("#items").append('<div class="col-4 demo-card-square mdl-card mdl-shadow--2dp margin"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + res["price"] + ' тенге' +'</h2></div><div class="mdl-card__supporting-text">' + data["name"] + '<br>' + '</div><div class="mdl-card__actions mdl-card--border"><button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="addToCart(' + data["id"] +')">В корзину</button></div>');
+                    var result = JSON.parse(res);
+                    sum += parseInt(result["price"], 10);
+                    $("#items").append('<div class="col-4 demo-card-square mdl-card mdl-shadow--2dp margin"><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + result["price"] + ' тенге' +'</h2></div><div class="mdl-card__supporting-text">' + result["name"] + '<br>' + '</div><div class="mdl-card__actions mdl-card--border"><button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="removeItem(' + result["id"] +')">Убрать</button></div>');
+
+                    $(".title").html("Sum: " + sum);
                     }
                     });
                 });
@@ -69,6 +78,16 @@
     function clearCart(){
         $.ajax({
             url: "/items/clearCart",
+            method: "GET",
+            success: function (data) {
+                Location.reload();  
+            }
+        });
+    }
+
+    function removeItem(id){
+        $.ajax({
+            url: "/items/removeItem/" + id,
             method: "GET",
             success: getElements()
         });

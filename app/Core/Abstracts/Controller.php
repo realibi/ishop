@@ -17,7 +17,5 @@ abstract class Controller implements ControllerInterface {
                 $e->assign($key, $value);
 
         return $e->display($template_name . ".tpl");
-
     }
-
 }
