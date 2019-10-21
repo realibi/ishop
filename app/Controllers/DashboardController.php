@@ -44,7 +44,12 @@ class DashboardController extends Controller {
         $this->db->insert("categories", [ "name" => $categoryName ]);
     }
 
-    function createItem($itemName){
-        $this->db->insert("items", [ "name" => $itemName ]);
+    function createItem($itemName, $itemPrice, $itemCategory){
+        $this->db->insert("items", [ 
+            "name" => $itemName,
+            "price" => $itemPrice,
+            "category" => $itemCategory
+            ]);
+        return $itemPrice;
     }
 }

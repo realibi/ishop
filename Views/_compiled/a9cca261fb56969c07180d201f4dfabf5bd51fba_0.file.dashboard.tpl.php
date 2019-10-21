@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-10-17 18:38:34
+/* Smarty version 3.1.34-dev-7, created on 2019-10-21 09:14:59
   from 'C:\OSPanel\domains\ishop.loc\Views\admin\dashboard.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5da88afa0fce56_67774685',
+  'unifunc' => 'content_5dad4ce332a866_39807000',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a9cca261fb56969c07180d201f4dfabf5bd51fba' => 
     array (
       0 => 'C:\\OSPanel\\domains\\ishop.loc\\Views\\admin\\dashboard.tpl',
-      1 => 1571326711,
+      1 => 1571623855,
       2 => 'file',
     ),
   ),
@@ -22,11 +22,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:global/footer.tpl' => 1,
   ),
 ),false)) {
-function content_5da88afa0fce56_67774685 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5dad4ce332a866_39807000 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:admin/blocks/head.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 echo '<script'; ?>
  src="/Views/admin/logic.js"><?php echo '</script'; ?>
 >
+
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
 <?php echo '<script'; ?>
 
@@ -59,6 +60,11 @@ echo '<script'; ?>
 
     .tac{
         text-align: center;
+    }
+
+    .block{
+        box-shadow: 0 0 2px;
+        padding: 20px;
     }
 </style>
 
@@ -95,59 +101,56 @@ echo '<script'; ?>
 
 
 
-<div class="col-4">
+
+
+<div class="col-5 tac mt-50 block">
 <div class="col-12 mt-50 title"><b>Создание категории</b></div>
 
 <!-- Simple Textfield -->
 
-<div class="col-12 tac">
+
   <div class="mdl-textfield mdl-js-textfield col-12 mt-20">
     <input class="mdl-textfield__input" type="text" id="categoryNameInput">
     <label class="mdl-textfield__label tac" for="categoryNameInput">Наименование</label>
   </div>
 
-<div class="col"></div>
 
+<div class="col-4 mt-50"></div>
 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent col-4" onclick="createCategory()">
   Создать
 </button>
-
-<div class="col"></div>
+<div class="col-4"></div>
 </div>
 
-<div class="col-4"></div>
+<div class="col-2"></div>
 
-<div class="col-4">
-
+<div class="col-5 tac mt-50 block">
 <div class="col-12 mt-50 title"><b>Создание товара</b></div>
 <!--создание товара-->
-
-<div class="col-12 tac">
   <div class="mdl-textfield mdl-js-textfield col-12 mt-20">
     <input class="mdl-textfield__input" type="text" id="itemNameInput">
     <label class="mdl-textfield__label tac" for="itemNameInput">Наименование</label>
   </div>
-<br>
+  <br>
   <div class="mdl-textfield mdl-js-textfield col-12 mt-20">
     <input class="mdl-textfield__input" type="number" id="itemPriceInput">
     <label class="mdl-textfield__label tac" for="itemPriceInput">Цена</label>
   </div>
-<br>
+  <br>
   <div class="mdl-textfield mdl-js-textfield col-12 mt-20">
-    <select id="categorySelect">
+    <select id="itemCategorySelect">
         
     </select>
   </div>
-
-<div class="col"></div>
-
-<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent col-4" onclick="createCategory()">
+<div class="col-4"></div>
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent col-4" onclick="createItem()">
   Создать
 </button>
+<div class="col-4"></div>
+</div>
 
-<div class="col"></div>
-</div>
-</div>
+<div class="mt-50">.</div>
+
 <?php echo '<script'; ?>
 >
 
@@ -160,10 +163,10 @@ echo '<script'; ?>
             success: function(data) {
                 var array = JSON.parse(data);
                 $("#categoryTableBody").html(" "); 
-                $("#categorySelect").html(" "); 
+                $("#itemCategorySelect").html(" "); 
                 array.forEach(function(item, i, data) {
                     $("#categoryTableBody").append("<tr><td class='mdl-data-table__cell--non-numeric'>" + item["name"] + "</td><td>" + array.length + "</td><td>" + "<button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' onclick='deleteCategory("+ item["id"] +")'>Удалить</button></tr>");  
-                    $("#categorySelect").append("<option value='" + item["id"] + "'>" + item["name"] + "</option>") ;
+                    $("#itemCategorySelect").append("<option value='" + item["id"] + "'>" + item["name"] + "</option>") ;
                 });
                   
             }
@@ -213,6 +216,19 @@ echo '<script'; ?>
         });
 
         loadData();
+    }
+
+    function createItem(){
+        $.ajax({
+            url: "dashboard/items/create/",
+            contentType: "application/json",
+            method: "POST",
+            data: JSON.stringify({
+                itemName: $("#itemNameInput").val(),
+                itemPrice: $("#itemPriceInput").val(),
+                itemCategory: $("#itemCategorySelect").val()
+            })
+        });
     }
 <?php echo '</script'; ?>
 >

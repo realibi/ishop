@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-10-17 15:45:24
+/* Smarty version 3.1.34-dev-7, created on 2019-10-21 04:43:20
   from 'C:\OSPanel\domains\ishop.loc\Views\admin\blocks\navbar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5da86264dc2fe2_18281695',
+  'unifunc' => 'content_5dad0d389dc488_85214477',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '40869116c6f9966e153001543edea38b5996eae5' => 
     array (
       0 => 'C:\\OSPanel\\domains\\ishop.loc\\Views\\admin\\blocks\\navbar.tpl',
-      1 => 1571316321,
+      1 => 1571622193,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5da86264dc2fe2_18281695 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5dad0d389dc488_85214477 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Always shows a header, even in smaller screens. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
@@ -31,24 +31,11 @@ function content_5da86264dc2fe2_18281695 (Smarty_Internal_Template $_smarty_tpl)
       <div class="mdl-layout-spacer"></div>
       <!-- Navigation. We hide it in small screens. -->
       <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
+        <a href="items/cart" class="mdl-navigation__link" href="">Корзина</a>
       </nav>
     </div>
   </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">iShop.kz</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-    </nav>
-  </div>
   <main class="mdl-layout__content">
     
-  </main>
-</div><?php }
+<?php }
 }
